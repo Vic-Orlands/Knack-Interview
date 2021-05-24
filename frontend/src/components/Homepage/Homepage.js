@@ -45,7 +45,7 @@ const Homepage = () => {
 	useEffect(() => {
 		getEmployees();
 		setEmployees(employees);
-	}, [search]);
+	}, []);
 
 	return (
 		<section className={classes['section']}>
