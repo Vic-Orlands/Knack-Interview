@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { IoMdPerson } from 'react-icons/io';
 import UserDetails from '../Employee_Details/Employee.details';
 import classes from './Homepage.module.css';
@@ -27,7 +27,7 @@ const Homepage = () => {
 		}
 	};
 
-	// filtering the dropdown array when searching
+	// filtering the array when searching
 	const search = (search) => {
 		let newList = [];
 		if (search !== '') {
@@ -42,10 +42,15 @@ const Homepage = () => {
 		setEmployees(newList);
 	};
 
+	// filtering the array by availability
+	filterAvailables = (e) => {
+		console.log( e.target.value );
+	};
+
 	useEffect(() => {
 		getEmployees();
 		setEmployees(employees);
-	}, []);
+	}, [ ]);
 
 	return (
 		<section className={classes['section']}>
@@ -72,9 +77,11 @@ const Homepage = () => {
 
 					<label htmlFor="">
 						Filter list by availability
-						<select name="" id="">
+						<select name="" id="" ref={elementRef} onChnage={filterAvailables} >
 							<option value="all">All Employees</option>
-							<option value="not_available">Not Available</option>
+							<option value="not_available">
+								Not Available
+							</option>
 							<option value="is_avilable">Is Available</option>
 						</select>
 					</label>
@@ -89,8 +96,8 @@ const Homepage = () => {
 					<br />
 					<hr />
 
-					{employees.map((employee) => (
-						<article>
+					{employees.map((employee, index) => (
+						<article key={index}>
 							<div>
 								<h4 onClick={() => openUserDetails(employee)}>{employee.name}</h4>
 
@@ -104,7 +111,13 @@ const Homepage = () => {
 								</div>
 							</div>
 
-							<h5 className={employee.isAvailable ? classes['meeting'] : classes["no-meeting"] }>{employee.isAvailable ? "Schedule a meeting" : "Can not schedule a meeting at this time" }</h5>
+							<h5 className={employee.isAvailable ? classes['meeting'] : classes['no-meeting']}>
+								{employee.isAvailable ? (
+									'Schedule a meeting'
+								) : (
+									'Can not schedule a meeting at this time'
+								)}
+							</h5>
 
 							<h5 className={classes['dpt']}>{employee.department}</h5>
 						</article>
