@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoMdPerson } from 'react-icons/io';
 import UserDetails from '../Employee_Details/Employee.details';
 import classes from './Homepage.module.css';
@@ -8,10 +8,10 @@ import Nav from '../Nav/Nav';
 import Sidemenu from '../Sidemenu/Sidemenu';
 
 const Homepage = () => {
-	const [openModal, setOpenModal] = useState(false);
-	const [employees, setEmployees] = useState([]);
-	const [filteredEmployees, setFilteredEmployees] = useState([]);
-	const [employee, setEmployee] = useState(null);
+	const [ openModal, setOpenModal ] = useState(false);
+	const [ employees, setEmployees ] = useState([]);
+	const [ filteredEmployees, setFilteredEmployees ] = useState([]);
+	const [ employee, setEmployee ] = useState(null);
 
 	const openUserDetails = (employee) => {
 		setEmployee(employee);
@@ -21,7 +21,10 @@ const Homepage = () => {
 	const getEmployees = async () => {
 		try {
 			let response = await axios.get('/employee_api/employee');
-			if (response.statusText === 'OK') { setEmployees(response.data); setFilteredEmployees(response.data); };
+			if (response.statusText === 'OK') {
+				setEmployees(response.data);
+				setFilteredEmployees(response.data);
+			}
 		} catch (error) {
 			console.log({ error });
 		}
@@ -43,10 +46,19 @@ const Homepage = () => {
 	};
 
 	// filtering the array by availability
-	const elementRef = useRef()
-	
-	const filterAvailables = (e) => {
-		console.log( e.target.value );
+	const filterAvailables = ({ target }) => {
+		let search = target.value;
+
+		let newArray = [];
+		if (search !== '') {
+			newArray = employees.filter((employ) => {
+				const str = employ.isAvailable;
+				return str === search;
+			});
+		} else {
+			newArray = employees;
+		}
+		setFilteredEmployees(newArray);
 	};
 
 	useEffect(() => {
@@ -78,12 +90,10 @@ const Homepage = () => {
 
 					<label htmlFor="">
 						Filter list by availability
-						<select name="" id="" ref={elementRef} onChange={filterAvailables} >
-							<option value="all">All Employees</option>
-							<option value="not_available">
-								Not Available
-							</option>
-							<option value="is_avilable">Is Available</option>
+						<select name="" id="" onChange={filterAvailables}>
+							<option />
+							<option value="false">Not Available</option>
+							<option value="true">Is Available</option>
 						</select>
 					</label>
 				</section>
@@ -98,7 +108,7 @@ const Homepage = () => {
 					<hr />
 
 					{filteredEmployees.map((employee, index) => (
-						<article key={index} >
+						<article key={index}>
 							<div>
 								<h4 onClick={() => openUserDetails(employee)}>{employee.name}</h4>
 
@@ -112,7 +122,13 @@ const Homepage = () => {
 								</div>
 							</div>
 
-							<h5 className={employee.isAvailable ? classes['meeting'] : classes["no-meeting"]}>{employee.isAvailable ? "Schedule a meeting" : "Can not schedule a meeting at this time"}</h5>
+							<h5 className={employee.isAvailable ? classes['meeting'] : classes['no-meeting']}>
+								{employee.isAvailable ? (
+									'Schedule a meeting'
+								) : (
+									'Can not schedule a meeting at this time'
+								)}
+							</h5>
 
 							<h5 className={classes['dpt']}>{employee.department}</h5>
 						</article>
