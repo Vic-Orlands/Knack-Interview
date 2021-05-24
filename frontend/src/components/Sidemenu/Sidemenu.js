@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { MdMail } from 'react-icons/md';
-import { FaUser } from 'react-icons/fa';
 import { FaSignOutAlt } from 'react-icons/fa';
 
 import classes from './Sidemenu.module.css';
