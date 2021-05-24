@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { IoMdPerson } from 'react-icons/io';
 import UserDetails from '../Employee_Details/Employee.details';
 import classes from './Homepage.module.css';
@@ -9,10 +9,12 @@ import Sidemenu from '../Sidemenu/Sidemenu';
 import { FaCommentsDollar } from 'react-icons/fa';
 
 const Homepage = () => {
-	const [ openModal, setOpenModal ] = useState(false);
-	const [ employees, setEmployees ] = useState([]);
-	const [ filteredEmployees, setFilteredEmployees ] = useState([]);
-	const [ employee, setEmployee ] = useState(null);
+	const [openModal, setOpenModal] = useState(false);
+	const [availability, setAvailability] = useState('all');
+	const availabilityQuery = useRef(null);
+	const [employees, setEmployees] = useState([]);
+	const [filteredEmployees, setFilteredEmployees] = useState([]);
+	const [employee, setEmployee] = useState(null);
 
 	const openUserDetails = (employee) => {
 		setEmployee(employee);
@@ -92,8 +94,8 @@ const Homepage = () => {
 
 					<label htmlFor="">
 						Filter list by availability
-						<select name="" id="" onChange={filterAvailables}>
-							<option />
+						<select name="" id="" ref={availabilityQuery} onChange={() => setAvailability(availabilityQuery.current.value)}>
+							<option value='all' >All</option>
 							<option value="false">Not Available</option>
 							<option value="true">Is Available</option>
 						</select>
@@ -109,7 +111,13 @@ const Homepage = () => {
 					<br />
 					<hr />
 
-					{filteredEmployees.map((employee, index) => (
+					{filteredEmployees.filter((employee) => {
+						if (availability === 'true' && !employee.isAvailable)
+							return false;
+						if (availability === 'false' && employee.isAvailable)
+							return false;
+						return true
+					}).map((employee, index) => (
 						<article key={index}>
 							<div>
 								<h4 onClick={() => openUserDetails(employee)}>{employee.name}</h4>
