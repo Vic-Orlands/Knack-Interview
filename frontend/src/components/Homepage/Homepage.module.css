@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.homepage-container {
+	font-family: 'Poppins', sans-serif;
+	background: #e5e5e5;
+	min-height: 100vh;
+	width: 85%;
+	padding: 0 2rem;
+	float: right;
+}
+
+#link {
+	text-decoration: none;
+}
+
+.section > section header {
+	height: 26vh;
+	width: 100%;
+	border-radius: 10px;
+	background: #0a2843;
+	display: flex;
+	align-items: center;
+	margin: 2rem 0;
+	padding: 0 2rem;
+}
+
+header h2 {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 25px;
+	line-height: 30px;
+	color: #ffaa00;
+}
+
+header p {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 20px;
+	color: #ffffff;
+}
+
+/* <----input search style starts here-----> */
+.search-input {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search-input input {
+	width: 100%;
+	height: 2.8rem;
+	padding: 0 .7rem;
+	font-size: .9rem;
+	outline: #0a2843;
+	margin-top: .2rem;
+}
+
+.search-input label {
+	width: 30%;
+	font-size: .9rem;
+}
+
+.search-input > label {
+	width: 30%;
+}
+
+.search-input label select {
+	display: block;
+	height: 2.8rem;
+	width: 100%;
+	padding: 0 .4rem;
+	margin-top: .2rem;
+	outline: #0a2843;
+}
+
+/* list of employees section starts here */
+.employee-list {
+	background-color: #ffffff;
+	margin: 2rem 0;
+	padding: 3.2rem 2rem;
+	border-radius: 10px;
+	color: #0a2843;
+}
+
+.employee-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0;
+}
+
+.employee-header h3 {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.employee-header h4 {
+	font-size: 14px;
+	line-height: 17px;
+	display: flex;
+	align-items: center;
+	color: #404040;
+	border: 1px solid #e0e3e8;
+	border-radius: 6px;
+	padding: .8rem;
+}
+
+.employee-list hr {
+	width: 129.15px;
+	background: #ffaa00;
+	border: 2px solid #ffaa00;
+	margin: 0;
+}
+
+.employee-list article {
+	border: 0.3px solid #97979798;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 0;
+}
+
+.employee-list article:nth-last-child(1) {
+	padding-bottom: 0;
+}
+
+.employee-list article h4 {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 20px;
+	color: #404040;
+	cursor: pointer;
+}
+
+.employee-list article .category {
+	width: 67%;
+}
+
+.employee-list article .category h6 {
+	display: inline-block;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	color: #979797;
+}
+
+.employee-list article .category h6:nth-child(1) {
+	width: 30%;
+}
+
+.employee-list article > div {
+	width: 50%;
+}
+
+.employee-list article .category .person-icon {
+	margin: 0 .3rem 0 2rem;
+}
+
+.employee-list article h5 {
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 19px;
+	color: #404040;
+	cursor: pointer;
+}
+
+.employee-list article .meeting,
+.employee-list article .no-meeting {
+	width: 30%;
+	text-align: right;
+}
+
+.employee-list article .dpt {
+	width: 12%;
+	text-align: left;
+}
+
+.employee-list article .no-meeting {
+	color: rgba(128, 128, 128, 0.767);
+}
+
+@media screen and (max-width: 768px) and (min-width: 200px) {
+	.homepage-container {
+		width: 100%;
+		padding: 0 1rem;
+	}
+
+	.section > section header {
+		height: 20vh;
+		width: 100%;
+		margin: 1.5rem 0;
+		padding: 0 1rem;
+	}
+
+	header h2 {
+		font-size: 1.2rem;
+		margin-bottom: 0;
+	}
+
+	header p {
+		font-size: .9rem;
+		margin-bottom: 0;
+	}
+
+	/* <----input search style starts here-----> */
+	.search-input {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.search-input input {
+		width: 100%;
+		height: 2.2rem;
+		padding: 0 .4rem;
+		margin-top: .2rem;
+	}
+
+	.search-input > label {
+		width: 60%;
+		font-size: .85rem;
+	}
+
+	.search-input > label:nth-child(2) {
+		margin-top: .5rem;
+	}
+
+	.search-input label select {
+		height: 2.2rem;
+		padding: 0 .3rem;
+	}
+
+	/* list of employees section starts here */
+	.employee-list {
+		margin: 1.5rem 0;
+		padding: 2rem 1.5rem;
+	}
+
+	.employee-header h3 {
+		font-size: 1.1rem;
+	}
+
+	.employee-header h4 {
+		font-size: .9rem;
+		padding: .6rem;
+	}
+
+	.employee-list hr {
+		width: 120px;
+	}
+
+	.employee-list article {
+		padding: .7rem 0;
+	}
+
+	.employee-list article h4 {
+		font-size: .9rem;
+	}
+
+	.employee-list article .category {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.employee-list article .category h6 {
+		font-size: .8rem;
+		margin: 0;
+	}
+
+	.employee-list article .category h6:nth-child(1) {
+		width: 100%;
+	}
+
+	.employee-list article > div {
+		width: 100%;
+	}
+
+	.employee-list article .category .person-icon {
+		display: none;
+	}
+
+	.employee-list article h5 {
+		font-size: .8rem;
+	}
+
+	.employee-list article .meeting,
+	.employee-list article .no-meeting {
+		width: 100%;
+		text-align: right;
+	}
+
+	.employee-list article .dpt {
+		width: 100%;
+		text-align: right;
+	}
+}
