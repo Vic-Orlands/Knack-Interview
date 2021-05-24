@@ -8,9 +8,10 @@ import Nav from '../Nav/Nav';
 import Sidemenu from '../Sidemenu/Sidemenu';
 
 const Homepage = () => {
-	const [ openModal, setOpenModal ] = useState(false);
-	const [ employees, setEmployees ] = useState([]);
-	const [ employee, setEmployee ] = useState(null);
+	const [openModal, setOpenModal] = useState(false);
+	const [employees, setEmployees] = useState([]);
+	const [filteredEmployees, setFilteredEmployees] = useState([]);
+	const [employee, setEmployee] = useState(null);
 
 	const openUserDetails = (employee) => {
 		setEmployee(employee);
@@ -20,8 +21,7 @@ const Homepage = () => {
 	const getEmployees = async () => {
 		try {
 			let response = await axios.get('/employee_api/employee');
-			console.log({ response });
-			if (response.statusText === 'OK') setEmployees(response.data);
+			if (response.statusText === 'OK') { setEmployees(response.data); setFilteredEmployees(response.data); };
 		} catch (error) {
 			console.log({ error });
 		}
@@ -39,18 +39,19 @@ const Homepage = () => {
 		} else {
 			newList = employees;
 		}
-		setEmployees(newList);
+		setFilteredEmployees(newList);
 	};
 
 	// filtering the array by availability
-	filterAvailables = (e) => {
+	const elementRef = useRef()
+	
+	const filterAvailables = (e) => {
 		console.log( e.target.value );
 	};
 
 	useEffect(() => {
 		getEmployees();
-		setEmployees(employees);
-	}, [ ]);
+	}, []);
 
 	return (
 		<section className={classes['section']}>
@@ -77,7 +78,7 @@ const Homepage = () => {
 
 					<label htmlFor="">
 						Filter list by availability
-						<select name="" id="" ref={elementRef} onChnage={filterAvailables} >
+						<select name="" id="" ref={elementRef} onChange={filterAvailables} >
 							<option value="all">All Employees</option>
 							<option value="not_available">
 								Not Available
@@ -96,8 +97,8 @@ const Homepage = () => {
 					<br />
 					<hr />
 
-					{employees.map((employee, index) => (
-						<article key={index}>
+					{filteredEmployees.map((employee, index) => (
+						<article key={index} >
 							<div>
 								<h4 onClick={() => openUserDetails(employee)}>{employee.name}</h4>
 
@@ -111,13 +112,7 @@ const Homepage = () => {
 								</div>
 							</div>
 
-							<h5 className={employee.isAvailable ? classes['meeting'] : classes['no-meeting']}>
-								{employee.isAvailable ? (
-									'Schedule a meeting'
-								) : (
-									'Can not schedule a meeting at this time'
-								)}
-							</h5>
+							<h5 className={employee.isAvailable ? classes['meeting'] : classes["no-meeting"]}>{employee.isAvailable ? "Schedule a meeting" : "Can not schedule a meeting at this time"}</h5>
 
 							<h5 className={classes['dpt']}>{employee.department}</h5>
 						</article>

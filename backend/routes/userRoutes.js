@@ -9,8 +9,6 @@ router.post('/login', async (req, res) => {
     try {
 
         const { username, password, } = req.body
-        console.log({ username, password });
-        console.log({ userLogin });
         if (!username || !password)
             return res.status(200).send('Missing Credentials');
 
