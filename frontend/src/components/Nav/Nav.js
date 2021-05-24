@@ -1,13 +1,16 @@
 import React from 'react';
 import classes from './Nav.module.css';
+import { NavLink } from 'react-router-dom';
 
-import { FaBell, FaBars } from 'react-icons/fa';
+import { FaBell, FaHome } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
 const Nav = () => {
 	return (
 		<nav>
-			<FaBars />
+			<NavLink to="/home" className={classes['nav-home-font']}>
+				<FaHome />
+			</NavLink>
 
 			<div className={classes['nav-description']}>
 				<FaBell id={classes['bell']} />

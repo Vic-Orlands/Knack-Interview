@@ -7,7 +7,7 @@ import { MdPhone, MdMail } from 'react-icons/md';
 import Meeting from '../Meeting/Meeting';
 
 const Employee = (props) => {
-	const [openModal, setOpenModal] = useState(false);
+	const [ openModal, setOpenModal ] = useState(false);
 	const { onClose, open, employee } = props;
 
 	const onclose = (e) => {
@@ -63,10 +63,14 @@ const Employee = (props) => {
 					</div>
 
 					<div className={classes['btn-container']}>
-						<button onClick={openUserDetails}>
-							<MdPhone className={classes['font']} />
-							Schedule a meeting
-						</button>
+						{employee.isAvailable ? (
+							<button onClick={openUserDetails}>
+								<MdPhone className={classes['font']} />
+								Schedule a meeting
+							</button>
+						) : (
+							<button style={{ opacity: 0}} ></button>
+						)}
 
 						<button>
 							<NavLink to="/survey" id={classes['link']}>

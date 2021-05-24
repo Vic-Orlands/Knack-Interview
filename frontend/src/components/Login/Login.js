@@ -9,10 +9,6 @@ import Axios from 'axios';
 class Login extends Component {
 	state = {
 		show: false,
-		username: '',
-		password: '',
-		passwordError: '',
-		isSubmitting: false
 	};
 
 	onClickShow = () => {
@@ -21,63 +17,6 @@ class Login extends Component {
 		});
 	};
 
-	handleInputChange = ({ target }) => {
-		this.setState({
-			[target.name]: target.value
-		});
-	};
-
-	handleSubmit = (e) => {
-		e.preventDefault();
-		this.setState({
-			isSubmitting: true
-		});
-
-		// destructuring the username and passwords states
-		const { username, password } = this.state;
-
-		const userLogin = {
-			username: username.toLowerCase(),
-			password: password
-		};
-
-		// using axios to call the endpoints
-		Axios.post('https://www.spendwise.ng/api/accounts/blog_in/', userLogin, {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then((res) => {
-				if (res.status === 200 && res.data.agent === 'admin') {
-					this.setState({
-						isSubmitting: false
-					});
-					// Cookies.set('user', res.data, { path: "/admin" });
-					// Cookies.get('user');
-					localStorage.setItem('admin', JSON.stringify(res.data));
-					localStorage.setItem('adminToken', JSON.stringify(res.data.token));
-					this.props.history.push('/admin/home');
-				} else if (res.status === 200 && res.data.agent === 'blogger') {
-					this.setState({
-						isSubmitting: false,
-						passwordError: 'User is not an admin'
-					});
-				} else return null;
-			})
-			.catch((err) => {
-				this.setState({
-					isSubmitting: false,
-					passwordError: 'Incorrect username and password'
-				});
-				setTimeout(() => {
-					this.setState({
-						username: '',
-						password: '',
-						passwordError: ''
-					});
-				}, 4000);
-			});
-	};
 
 	render() {
 		const { username, password, passwordError, isSubmitting } = this.state;

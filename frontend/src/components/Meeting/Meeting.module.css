@@ -142,6 +142,18 @@
 	color: #ffffff;
 }
 
+.loadGif {
+	width: 20%;
+	height: 100%;
+	margin: auto;
+}
+
+.gifButton {
+	padding: 0;
+	height: 7vh;
+	background-color: #0a2843;
+}
+
 @media screen and (max-width: 768px) and (min-width: 200px) {
 	.meeting-content {
 		width: 90%;

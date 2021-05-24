@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './Meeting.module.css';
 
+import loaderGif from '../../assets/createGif.gif';
+
 const Meeting = (props) => {
+	const [ loading, setLoading ] = useState(false);
+	const [ sentMessage, setSentMessage ] = useState('');
+
+	const scheduleMeeting = () => {
+		setLoading(true);
+
+		// message appears after 3seconds
+		setTimeout(() => {
+			setLoading(false);
+			setSentMessage(' Meeting sent successfully!');
+			window.location.reload();
+		}, 3000);
+	};
+
 	const onclose = (e) => {
 		window.location.reload();
 	};
@@ -38,10 +54,18 @@ const Meeting = (props) => {
 						</label>
 					</form>
 
+					<center>{sentMessage ? <p>{sentMessage}</p> : ''}</center>
+
 					<div className={classes['btn-container']}>
 						<button onClick={onclose}>Cancel this meeting</button>
 
-						<button>Schedule this meeting</button>
+						{!loading ? (
+							<button onClick={scheduleMeeting}>Schedule this meeting</button>
+						) : (
+							<button className={classes['gifButton']}>
+								<img src={loaderGif} alt="img" className={classes['loadGif']} />
+							</button>
+						)}
 					</div>
 				</section>
 			</section>
