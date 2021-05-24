@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.survey-content {
+	font-family: 'Poppins', sans-serif;
+	background: #e5e5e5;
+	min-height: 100vh;
+	width: 85%;
+	padding: 2rem;
+	float: right;
+}
+
+@media screen and (max-width: 768px) and (min-width: 200px) {
+	.survey-content {
+		width: 100%;
+	}
+}

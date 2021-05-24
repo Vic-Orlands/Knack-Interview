@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.login-container {
+	font-family: 'Montserrat', sans-serif;
+	background: #111111de url("../../assets/home.jpg") center no-repeat;
+	color: #ffffff;
+	background-size: cover;
+	background-blend-mode: soft-light;
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.center-container {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 0 12% 0 17%;
+}
+
+.center-container p {
+	font-size: 2.8rem;
+	line-height: 3.5rem;
+}
+
+.center-container p b {
+	font-size: 3.5rem;
+}
+
+.center-container form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.center-container form label {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1rem;
+	border: none;
+}
+
+.center-container form input {
+	height: 3rem;
+	width: 21.6vw;
+	border-radius: 2px;
+	margin-top: .4rem;
+	padding: 0 0 0 .5rem;
+	border: none;
+	color: #000000;
+}
+
+.center-container form input:focus,
+.center-container form input:active {
+	outline: #ffffff;
+}
+
+.center-container .innerPasswrd {
+	display: flex;
+	align-items: center;
+	height: 3rem;
+	width: 21.6vw;
+	background-color: #ffffff;
+}
+
+.login-container .errorMsg {
+	font-family: sans-serif;
+	font-size: 1rem;
+	margin-top: -1rem;
+	margin-bottom: -2rem;
+	text-align: right;
+}
+
+.center-container .innerPasswrd span {
+	margin: auto;
+	font-size: 12px;
+	line-height: 15px;
+	text-decoration-line: underline;
+	color: #1b5bac;
+}
+
+.center-container .innerPasswrd input {
+	width: 80%;
+	height: 100%;
+	margin: auto 0;
+}
+
+.center-container form .btnLabel {
+	display: flex;
+	align-items: center;
+	height: 3rem;
+	width: 21.6vw;
+}
+
+.btnLabel:hover > button {
+	background-color: #dd970c;
+	border: 1px solid #dd970c;
+	cursor: pointer;
+}
+
+.center-container form .btnLabel button {
+	width: 80%;
+	height: 100%;
+	margin: auto 0;
+	background: #ffaa00;
+	border-radius: 0px;
+	border: 1px solid #dd970c;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 600;
+	outline: transparent;
+}
+
+.login-container form .btnLabel button:disabled {
+	border: 0px;
+	background-color: grey;
+}
+
+#btnArrow {
+	width: 20%;
+	height: 100%;
+	background: #fee3ad;
+	color: #000000 !important;
+}
+
+#btnArrow:hover {
+	cursor: pointer;
+}
+
+.btnLabel:hover > #btnArrow {
+	background: #e6ca92;
+	border-left: 1px solid black;
+}
+
+.login-container .loadingGif {
+	width: 20%;
+	height: 100%;
+}
+
+@media screen and (max-width: 760px) and (min-width: 280px) {
+	.center-container {
+		flex-direction: column;
+	}
+
+	.center-container p {
+		font-size: 1.2rem;
+		line-height: 1.4em;
+	}
+
+	.center-container p b {
+		font-size: 2rem;
+	}
+
+	.center-container form {
+		width: 100%;
+	}
+
+	.center-container form label {
+		font-weight: 500;
+		font-size: 1rem;
+		margin-bottom: 0;
+	}
+
+	.center-container form input {
+		display: block;
+		height: 2.5rem;
+		width: 100%;
+		border-radius: 0;
+		margin-top: 0;
+		padding: 0 0 0 .5rem;
+	}
+
+	.center-container .innerPasswrd {
+		height: 2.5rem;
+		width: 100%;
+		padding-right: 0;
+	}
+
+	.login-container .errorMsg {
+		font-size: .9rem;
+		margin-top: .2rem;
+		margin-bottom: 0rem;
+	}
+
+	.center-container .innerPasswrd input {
+		width: 85%;
+		height: 100%;
+		margin: auto 0;
+	}
+
+	.center-container form .btnLabel {
+		height: 2.5rem;
+		width: 100%;
+	}
+
+	.center-container form .btnLabel button {
+		width: 90%;
+	}
+}
