@@ -7,17 +7,18 @@ import { MdPhone, MdMail } from 'react-icons/md';
 import Meeting from '../Meeting/Meeting';
 
 const Employee = (props) => {
-	const [ openModal, setOpenModal ] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
+	const { onClose, open, employee } = props;
 
 	const onclose = (e) => {
-		props.onClose && props.onClose(e);
+		onClose && onClose(e);
 	};
 
 	const openUserDetails = (e) => {
 		setOpenModal(!openModal);
 	};
 
-	if (!props.open) {
+	if (!open) {
 		return null;
 	}
 
@@ -37,27 +38,27 @@ const Employee = (props) => {
 					<div className={classes['name-container']}>
 						<label>
 							<b>Full Name:</b>
-							<p>Victor Innocent</p>
+							<p>{employee.name}</p>
 						</label>
 
 						<label>
-							<b>Sex:</b>
-							<p>Male</p>
+							<b>Gender:</b>
+							<p>{employee.gender}</p>
 						</label>
 
 						<label>
 							<b>Location of Employee:</b>
-							<p>London</p>
+							<p>{employee.location}</p>
 						</label>
 
 						<label>
 							<b>Position/Department:</b>
-							<p>Software Developer</p>
+							<p>{employee.department}</p>
 						</label>
 
 						<label>
 							<b>Is Employee Available for a meeting:</b>
-							<p>Yes</p>
+							<p>{employee.isAvailable ? 'Yes' : 'No'}</p>
 						</label>
 					</div>
 

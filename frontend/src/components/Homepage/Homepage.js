@@ -8,12 +8,29 @@ import Nav from '../Nav/Nav';
 import Sidemenu from '../Sidemenu/Sidemenu';
 
 const Homepage = () => {
-	const [ openModal, setOpenModal ] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
+	const [employees, setEmployees] = useState([]);
+	const [employee, setEmployee] = useState(null);
 
-	const openUserDetails = (e) => {
+	const openUserDetails = (employee) => {
+		setEmployee(employee);
 		setOpenModal(!openModal);
 	};
 
+	const getEmployees = async () => {
+		try {
+			let response = await axios.get('/employee_api/employee');
+			console.log({ response });
+			if (response.statusText === "OK")
+				setEmployees(response.data);
+		} catch (error) {
+			console.log({ error });
+		}
+	}
+
+	useEffect(() => {
+		getEmployees();
+	}, []);
 	// <----getting number of drafts---->
 	// const no_of_posts_published = allPosts.filter((post) => post.is_approved === true);
 
@@ -60,82 +77,30 @@ const Homepage = () => {
 					<br />
 					<hr />
 
-					<article>
-						<div>
-							<h4 onClick={openUserDetails}>Victor Innocent</h4>
+					{employees.map((employee) =>
+						<article>
+							<div>
+								<h4 onClick={() => openUserDetails(employee)}>{employee.name}</h4>
 
-							<div className={classes['category']}>
-								<h6>Location: London</h6>
+								<div className={classes['category']}>
+									<h6>{`Location: ${employee.location}`}</h6>
 
-								<h6>
-									<IoMdPerson size={18} className={classes['person-icon']} />
-									Is Available: <b>Yes</b>
-								</h6>
+									<h6>
+										<IoMdPerson size={18} className={classes['person-icon']} />
+										Is Available: <b>{employee.isAvailable ? 'yes' : 'No'}</b>
+									</h6>
+								</div>
 							</div>
-						</div>
 
-						<h5 className={classes['meeting']}>Schedule a meeting</h5>
+							<h5 className={classes['meeting']}>Schedule a meeting</h5>
 
-						<h5 className={classes['dpt']}>Software Developer</h5>
-					</article>
-
-					<article>
-						<div>
-							<h4 onClick={openUserDetails}>Victor Innocent</h4>
-
-							<div className={classes['category']}>
-								<h6>Location: Nigeria</h6>
-								<h6>
-									<IoMdPerson size={18} className={classes['person-icon']} />
-									Is Available: <b> No</b>
-								</h6>
-							</div>
-						</div>
-
-						<h5 className={classes['no-meeting']}>Can't Schedule a meeting at this time</h5>
-
-						<h5 className={classes['dpt']}>Data Analyst</h5>
-					</article>
-
-					<article>
-						<div>
-							<h4 onClick={openUserDetails}>Victor Innocent</h4>
-
-							<div className={classes['category']}>
-								<h6>Location: Paris</h6>
-								<h6>
-									<IoMdPerson size={18} className={classes['person-icon']} />
-									Is Available: <b> Yes</b>
-								</h6>
-							</div>
-						</div>
-
-						<h5 className={classes['meeting']}>Schedule a meeting</h5>
-
-						<h5 className={classes['dpt']}>Technical Writer</h5>
-					</article>
-
-					<article>
-						<div>
-							<h4 onClick={openUserDetails}>Victor Innocent</h4>
-
-							<div className={classes['category']}>
-								<h6>Location: Nigeria</h6>
-								<h6>
-									<IoMdPerson size={18} className={classes['person-icon']} />
-									Is Available: <b> No</b>
-								</h6>
-							</div>
-						</div>
-
-						<h5 className={classes['no-meeting']}>Can't Schedule a meeting at this time</h5>
-
-						<h5 className={classes['dpt']}>Data Analyst</h5>
-					</article>
+							<h5 className={classes['dpt']}>{employee.department}</h5>
+						</article>
+					)}
 				</section>
 			</section>
 
-			<UserDetails open={openModal} onClose={openUserDetails} />
+			<UserDetails open={openModal} onClose={openUserDetails} employee={employee} />
 		</section>
 	);
 };
