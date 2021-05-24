@@ -8,9 +8,9 @@ import Nav from '../Nav/Nav';
 import Sidemenu from '../Sidemenu/Sidemenu';
 
 const Homepage = () => {
-	const [openModal, setOpenModal] = useState(false);
-	const [employees, setEmployees] = useState([]);
-	const [employee, setEmployee] = useState(null);
+	const [ openModal, setOpenModal ] = useState(false);
+	const [ employees, setEmployees ] = useState([]);
+	const [ employee, setEmployee ] = useState(null);
 
 	const openUserDetails = (employee) => {
 		setEmployee(employee);
@@ -21,21 +21,31 @@ const Homepage = () => {
 		try {
 			let response = await axios.get('/employee_api/employee');
 			console.log({ response });
-			if (response.statusText === "OK")
-				setEmployees(response.data);
+			if (response.statusText === 'OK') setEmployees(response.data);
 		} catch (error) {
 			console.log({ error });
 		}
-	}
+	};
+
+	// filtering the dropdown array when searching
+	const search = (search) => {
+		let newList = [];
+		if (search !== '') {
+			newList = employees.filter((employ) => {
+				const str = employ.location.toLowerCase();
+				const filter = search.toLowerCase();
+				return str.includes(filter);
+			});
+		} else {
+			newList = employees;
+		}
+		setEmployees(newList);
+	};
 
 	useEffect(() => {
 		getEmployees();
+		setEmployees(employees);
 	}, []);
-	// <----getting number of drafts---->
-	// const no_of_posts_published = allPosts.filter((post) => post.is_approved === true);
-
-	// <----converting the timestamp to normal date time---->
-	// const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
 	return (
 		<section className={classes['section']}>
@@ -53,7 +63,11 @@ const Homepage = () => {
 				<section className={classes['search-input']}>
 					<label htmlFor="">
 						Filter list by location and department
-						<input type="text" placeholder="Filter list by attributes" />
+						<input
+							type="text"
+							placeholder="Filter list by attributes"
+							onChange={(e) => search(e.target.value)}
+						/>
 					</label>
 
 					<label htmlFor="">
@@ -70,14 +84,12 @@ const Homepage = () => {
 					<div className={classes['employee-header']}>
 						<h3>All Employees</h3>
 
-						<h4>
-							Departments
-						</h4>
+						<h4>Departments</h4>
 					</div>
 					<br />
 					<hr />
 
-					{employees.map((employee) =>
+					{employees.map((employee) => (
 						<article>
 							<div>
 								<h4 onClick={() => openUserDetails(employee)}>{employee.name}</h4>
@@ -92,11 +104,11 @@ const Homepage = () => {
 								</div>
 							</div>
 
-							<h5 className={classes['meeting']}>Schedule a meeting</h5>
+							<h5 className={employee.isAvailable ? classes['meeting'] : classes["no-meeting"] }>{employee.isAvailable ? "Schedule a meeting" : "Can not schedule a meeting at this time" }</h5>
 
 							<h5 className={classes['dpt']}>{employee.department}</h5>
 						</article>
-					)}
+					))}
 				</section>
 			</section>
 

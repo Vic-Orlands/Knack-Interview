@@ -1,7 +1,7 @@
-import React, { Component, useState, useReducer } from 'react';
+import React, { useState, useReducer } from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import classes from './Login.module.css';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 import loaderGif from '../../assets/loading.gif';
 import axios from 'axios';
@@ -9,21 +9,19 @@ import axios from 'axios';
 // import { withCookies, Cookies } from 'react-cookie';
 const Login = () => {
 	let history = useHistory();
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [error, setError] = useState(false);
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+	const [ error, setError ] = useState(false);
+	const [ isSubmitting, setIsSubmitting ] = useState(false);
 
-	const [userLogin, setUserLogin] = useReducer((state, nextState) => ({ ...state, ...nextState }),
-		{
-			username: '',
-			password: '',
-		})
-
+	const [ userLogin, setUserLogin ] = useReducer((state, nextState) => ({ ...state, ...nextState }), {
+		username: '',
+		password: ''
+	});
 
 	const handleChange = (e) => {
 		const { value, name } = e.target;
 		setUserLogin({ [name]: value });
-	}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -31,7 +29,7 @@ const Login = () => {
 		try {
 			let response = await axios.post('/user_api/login', userLogin);
 			console.log({ response });
-			if (response.data === "success") {
+			if (response.data === 'success') {
 				localStorage.setItem('knack_login', 'true');
 				setIsLoggedIn(true);
 				setIsSubmitting(false);
@@ -46,14 +44,13 @@ const Login = () => {
 		} catch (error) {
 			setIsSubmitting(false);
 			console.log({ error });
-			setError('Network Error')
+			setError('Network Error');
 
 			setTimeout(() => {
 				setError(false);
 			}, 4000);
 		}
 	};
-
 
 	return (
 		<main className={classes['login-container']}>
@@ -65,7 +62,7 @@ const Login = () => {
 				<form>
 					<label htmlFor="username">
 						Username
-							<input
+						<input
 							type="text"
 							name="username"
 							value={userLogin.username}
@@ -84,7 +81,6 @@ const Login = () => {
 							type="password"
 							name="password"
 							value={userLogin.password}
-							
 							onChange={handleChange}
 							autoComplete="current-password"
 						/>
@@ -107,6 +103,6 @@ const Login = () => {
 			</div>
 		</main>
 	);
-}
+};
 
 export default Login;
